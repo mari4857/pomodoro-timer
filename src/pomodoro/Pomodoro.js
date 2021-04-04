@@ -3,6 +3,7 @@ import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import { minutesToDuration } from "../utils/duration";
 import { secondsToDuration } from "../utils/duration";
+import Timer from "./Timer";
 
 function Pomodoro() {
   // Timer starts out paused
@@ -105,9 +106,9 @@ function Pomodoro() {
 
   return (
     <div className="pomodoro">
-      <div className="row">
+      <div className="row mb-5">
         <div className="col">
-          <div className="input-group input-group-lg mb-2">
+          <div className="input-group input-group-lg">
             <span className="input-group-text" data-testid="duration-focus">
               {/* TODO: Update this text to display the current focus session duration */}
               Focus Duration: {minutesToDuration(focusDuration)}
@@ -138,7 +139,7 @@ function Pomodoro() {
         </div>
         <div className="col">
           <div className="float-right">
-            <div className="input-group input-group-lg mb-2">
+            <div className="input-group input-group-lg">
               <span className="input-group-text" data-testid="duration-break">
                 {/* TODO: Update this text to display the current break session duration */}
                 Break Duration: {minutesToDuration(breakDuration)}
@@ -204,44 +205,16 @@ function Pomodoro() {
           </div>
         </div>
       </div>
-      <div style={{ display: isTimerVisible ? "block" : "none" }}>
-        {/* TODO: This area should show only when a focus or break session is running or pauses */}
-        <div className="row mb-2">
-          <div className="col">
-            {/* TODO: Update message below to include current session (Focusing or On Break) and total duration */}
-            <h2 data-testid="session-title">
-              {!isFocusTimer ? "Focusing" : "On Break"} for{" "}
-              {!isFocusTimer
-                ? minutesToDuration(focusDuration)
-                : minutesToDuration(breakDuration)}{" "}
-              minutes
-            </h2>
-            {/* TODO: Update message below to include time remaining in the current session */}
-            <p className="lead" data-testid="session-sub-title">
-              {showTimeRemaining()} remaining
-            </p>
-            {!isTimerRunning ? (
-              <p>
-                <strong>PAUSED</strong>
-              </p>
-            ) : null}
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col">
-            <div className="progress" style={{ height: "20px" }}>
-              <div
-                className="progress-bar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow={percentComplete} // TODO: Increase aria-valuenow as elapsed time increases
-                style={{ width: `${percentComplete}%` }} // TODO: Increase width % as elapsed time increases
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Timer
+        isTimerVisible={isTimerVisible}
+        isFocusTimer={isFocusTimer}
+        minutesToDuration={minutesToDuration}
+        focusDuration={focusDuration}
+        breakDuration={breakDuration}
+        showTimeRemaining={showTimeRemaining}
+        isTimerRunning={isTimerRunning}
+        percentComplete={percentComplete}
+      />
     </div>
   );
 }
