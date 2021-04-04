@@ -61,8 +61,10 @@ function Pomodoro() {
   }
 
   function showTimeRemaining() {
-    if (secondsRemaining > 0) {
+    if (secondsRemaining > 0 && secondsRemaining > 10) {
       return `${minutesRemaining}:${secondsRemaining}`;
+    } else if (secondsRemaining > 0 && secondsRemaining <= 9) {
+      return `${minutesRemaining}:0${secondsRemaining}`;
     } else {
       return minutesToDuration(minutesRemaining);
     }
