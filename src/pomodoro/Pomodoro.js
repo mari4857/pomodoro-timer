@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import useInterval from "../utils/useInterval";
 import { minutesToDuration } from "../utils/duration";
-import { secondsToDuration } from "../utils/duration";
 import Timer from "./Timer";
 import PlayPause from "./PlayPause";
 import FocusDuration from "./FocusDuration";
